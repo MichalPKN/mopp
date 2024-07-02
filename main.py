@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template
+from flask import Flask, redirect, render_template, request
 import sys
 # sys.path is a list of absolute path strings
 from components.data_loader import DataLoader
@@ -28,9 +28,13 @@ if Standa:
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def hello_world():
-    return render_template('index.html')
+    data = request.args
+    if "stat-request" not in data:
+        return render_template('index.html')
+    return render_template('index.html', stats=data["stat-request"])
+    
 
 @app.route('/button-pressed', methods=['POST'])
 def button_pressed():

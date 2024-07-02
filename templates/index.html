@@ -75,6 +75,7 @@
             color: #fff;
             border: none;
             cursor: pointer;
+            border-radius: 5px;
         }
         button:hover {
             background-color: #28662b;
@@ -102,10 +103,10 @@
             <h1>MOPP</h1>
             <div class="mid">
                 <h2>Kesha</h2>
-                <button onclick="sendRequest()">Press me</button>
+                <button onclick="sendRequest()">Refresh data</button>
             </div>
             <form id="user-info-form">
-                <label for="league-username">username#TAG:</label>
+                <label for="league-username">Username#TAG:</label>
                 <input type="text" id="league-username" name="league-username" required>
             </form>
         </header>
@@ -116,6 +117,12 @@
                 <input type="submit" value="Request Stats" onclick="sendRequest()">
             </form>
         </div>
+        {% if stats %}
+            <div class="test">
+                <h3>straight up testing rn</h3>
+                <p>{{ stats }}</p>
+            </div>
+        {% endif %}
     </div>
 </body>
 </html>
