@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League Stat Request</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1e1e1e;
+            color: #c7c7c7;
+            padding: 10px 40px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .stat-form {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #181818;
+            padding: 20px;
+        }
+        #user-info-form {
+            width: 250px;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 50px;
+        }
+        h1 {
+            color: #4caf50;
+            margin-top: 0;
+            width: 250px;
+        }
+        h2 {
+            font-size: 35px;
+            margin: 0 0 10px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #c7c7c7;
+        }
+        input[type="text"], input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            background-color: #333;
+            border: 1px solid #555;
+            color: #c7c7c7;
+        }
+        input[type="submit"] {
+            background-color: #39843b;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #28662b;
+        }
+        .mid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        button {
+            display: block;
+            padding: 7px;
+            background-color: #39843b;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #28662b;
+        }
+    </style>
+    <script>
+        function sendRequest() {
+            fetch('/button-pressed', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({action: 'button_pressed'})
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MOPP</h1>
+            <div class="mid">
+                <h2>Kesha</h2>
+                <button onclick="sendRequest()">Press me</button>
+            </div>
+            <form id="user-info-form">
+                <label for="league-username">username#TAG:</label>
+                <input type="text" id="league-username" name="league-username" required>
+            </form>
+        </header>
+        <div class="stat-form">
+            <form id="stat-request">
+                <label for="stat-request">Stat Request:</label>
+                <input type="text" id="stat-request" name="stat-request" required>
+                <input type="submit" value="Request Stats" onclick="sendRequest()">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
