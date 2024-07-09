@@ -52,7 +52,7 @@ class DataLoader:
                                 if found:
                                     break
                     match_json[summoner_i]["matches"].insert(0,match)
-                    match_json[summoner_i]["matches"] = match_json[summoner_i]["matches"][:n_matches]
+                    #match_json[summoner_i]["matches"] = match_json[summoner_i]["matches"][:n_matches]
                 match_json[summoner_i]["last_match"] = matches[0]
                 file.seek(0)
                 file.truncate()

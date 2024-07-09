@@ -12,7 +12,7 @@
             padding: 10px 40px;
         }
         .container {
-            max-width: 1100px;
+            max-width: 950px;
             margin: 0 auto;
             padding: 20px;
             background-color: #181818;
@@ -26,7 +26,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
-        #user-info-form {
+        #refresh {
             width: 250px;
         }
         header {
@@ -82,6 +82,8 @@
             border: none;
             cursor: pointer;
             border-radius: 5px;
+            margin-left: auto; 
+            margin-right: 0;
         }
         button:hover {
             background-color: #28662b;
@@ -134,13 +136,13 @@
         }
     </style>
     <script>
-        function sendRequest() {
+        function refreshData() {
             fetch('/button-pressed', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({action: 'button_pressed'})
+                body: JSON.stringify({ refresh: true })
             })
             .then(response => response.json())
             .then(data => {
@@ -155,18 +157,19 @@
             <h1>MOPP</h1>
             <div class="mid">
                 <h2>{{ name }}</h2>
-                <button onclick="sendRequest()">Refresh data</button>
             </div>
-            <form id="user-info-form">
-                <label for="league-username">Username#TAG:</label>
-                <input type="text" id="league-username" name="league-username" required>
-            </form>
+            {# <form id="user-info-form">
+                <label for="league-username">To resfresh data yourself, put your own riot API key:</label>
+                <input type="text" id="api_key" name="api_key" required>
+                <button onclick="addAPIKey()">Refresh data</button>
+            </form> #}
+            <div id="refresh"><button onclick="refreshData()">Refresh data</button></div>
         </header>
         <div class="stat-form">
             <form id="stat-request">
                 <label for="stat-request">Stat Request:</label>
-                <input type="text" id="stat-request" name="stat-request" required>
-                <input type="submit" value="Request Stats" onclick="sendRequest()">
+                <input type="text" value="{{ stat }}" id="stat-request" name="stat-request" required>
+                <input type="submit" value="Request Stats">
             </form>
         </div>
         {% if error %}

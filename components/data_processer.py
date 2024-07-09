@@ -5,7 +5,7 @@ class DataProcesser:
     def __init__(self):
         pass
 
-    def process_data(self, query, puuid, indexes=[5, 10]):
+    def process_data(self, query, puuid, indexes=[5, 10, 50]):
         with open('match_stats.json', 'r') as file:
             data = json.load(file)
             i_matches = 0
