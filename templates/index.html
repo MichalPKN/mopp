@@ -14,12 +14,17 @@
         .container {
             max-width: 1100px;
             margin: 0 auto;
+            padding: 20px;
+            background-color: #181818;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
         .stat-form {
             max-width: 600px;
-            margin: 20px auto;
-            background-color: #181818;
+            margin: 20px auto 35px auto;
+            background-color: #202020;
             padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
         #user-info-form {
             width: 250px;
@@ -53,6 +58,7 @@
             background-color: #333;
             border: 1px solid #555;
             color: #c7c7c7;
+            border-radius: 5px;
         }
         input[type="submit"] {
             background-color: #39843b;
@@ -70,7 +76,7 @@
         }
         button {
             display: block;
-            padding: 7px;
+            padding: 10px;
             background-color: #39843b;
             color: #fff;
             border: none;
@@ -79,6 +85,52 @@
         }
         button:hover {
             background-color: #28662b;
+        }
+        .gamer-percentage {
+            background-color: #262626;
+            border: 2px solid #28662b;
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            max-width: 600px;
+            margin: 40px auto;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+        }
+        .title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .bar-container {
+            background-color: #333333;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .bar {
+            height: 30px;
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+        }
+        .bar-yes {
+            background-color: #42ff4b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #000;
+        }
+        .bar-no {
+            background-color: #ff4f4f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #000;
+        }
+        .games {
+            font-size: 1.2em;
+            margin-top: 30px;
+            margin-bottom: 4px;
         }
     </style>
     <script>
@@ -102,7 +154,7 @@
         <header>
             <h1>MOPP</h1>
             <div class="mid">
-                <h2>Kesha</h2>
+                <h2>{{ name }}</h2>
                 <button onclick="sendRequest()">Refresh data</button>
             </div>
             <form id="user-info-form">
@@ -117,11 +169,25 @@
                 <input type="submit" value="Request Stats" onclick="sendRequest()">
             </form>
         </div>
-        {% if stats %}
+        {% if error %}
             <div class="test">
-                <h3>straight up testing rn</h3>
-                <p>{{ stats }}</p>
+                <p>{{ error | safe }}</p>
             </div>
+        {% else %}
+        {% if stat %}
+            <div class="gamer-percentage">
+                <div class="title">{{ stat }}</div>
+                {% for result in results %}
+                <div class="games">{{ result[0] }} games</div>
+                <div class="bar-container">
+                    <div class="bar">
+                        <div class="bar-yes" style="width: {{ result[1] }}%;">YES {{ '%0.2f'|format(result[1] |float ) }}%</div>
+                        <div class="bar-no" style="width: {{ 100 - result[1] }}%;">NO {{ '%0.2f'|format(100 - result[1] |float ) }}%</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
         {% endif %}
     </div>
 </body>

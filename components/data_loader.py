@@ -36,7 +36,23 @@ class DataLoader:
                     if match_id == summoner["last_match"]:
                         break
                     match = lol_watcher.match.by_id(region, match_id)
-                    match_json[summoner_i]["matches"].append(match)
+                    if match["info"]["endOfGameResult"] != "GameComplete":
+                        continue
+                    for i, participant in enumerate(match["info"]["participants"]):
+                        found = False
+                        if participant["puuid"] == puuid:
+                            for style in participant["perks"]["styles"]:
+                                for selection in style["selections"]:
+                                    if selection["perk"] == 8128:
+                                        match["info"]["participants"][i]["darkHarvestStacks"] = selection["var2"]
+                                        found = True
+                                        break
+                                    else:
+                                        match["info"]["participants"][i]["darkHarvestStacks"] = "N/A"
+                                if found:
+                                    break
+                    match_json[summoner_i]["matches"].insert(0,match)
+                    match_json[summoner_i]["matches"] = match_json[summoner_i]["matches"][:n_matches]
                 match_json[summoner_i]["last_match"] = matches[0]
                 file.seek(0)
                 file.truncate()
