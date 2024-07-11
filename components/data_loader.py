@@ -36,7 +36,7 @@ class DataLoader:
                     if match_id == summoner["last_match"]:
                         break
                     match = lol_watcher.match.by_id(region, match_id)
-                    if match["info"]["endOfGameResult"] != "GameComplete":
+                    if match["info"]["endOfGameResult"] != "GameComplete" or match["info"]["queueId"] != 420:
                         continue
                     for i, participant in enumerate(match["info"]["participants"]):
                         found = False

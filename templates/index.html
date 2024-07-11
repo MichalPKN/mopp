@@ -134,6 +134,22 @@
             margin-top: 30px;
             margin-bottom: 4px;
         }
+        .participant-keys {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #202020;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .participant-keys h3 {
+            margin-bottom: 15px;
+            color: #4caf50;
+        }
+        .participant-keys pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: #c7c7c7;
+        }
     </style>
     <script>
         function refreshData() {
@@ -158,11 +174,6 @@
             <div class="mid">
                 <h2>{{ name }}</h2>
             </div>
-            {# <form id="user-info-form">
-                <label for="league-username">To resfresh data yourself, put your own riot API key:</label>
-                <input type="text" id="api_key" name="api_key" required>
-                <button onclick="addAPIKey()">Refresh data</button>
-            </form> #}
             <div id="refresh"><button onclick="refreshData()">Refresh data</button></div>
         </header>
         <div class="stat-form">
@@ -181,7 +192,7 @@
             <div class="gamer-percentage">
                 <div class="title">{{ stat }}</div>
                 {% for result in results %}
-                <div class="games">{{ result[0] }} games</div>
+                <div class="games">last {{ result[0] }} games</div>
                 <div class="bar-container">
                     <div class="bar">
                         <div class="bar-yes" style="width: {{ result[1] }}%;">YES {{ '%0.2f'|format(result[1] |float ) }}%</div>
@@ -192,6 +203,127 @@
             </div>
         {% endif %}
         {% endif %}
+        <div class="all_variables">
+            <h3>Stats to use:</h3>
+            <pre>
+allInPings
+assistMePings
+assists
+baronKills
+basicPings
+bountyLevel
+champExperience
+champLevel
+championId
+championName
+championTransform
+commandPings
+consumablesPurchased
+damageDealtToBuildings
+damageDealtToObjectives
+damageDealtToTurrets
+damageSelfMitigated
+dangerPings
+deaths
+detectorWardsPlaced
+doubleKills
+dragonKills
+eligibleForProgression
+enemyMissingPings
+firstBloodAssist
+firstBloodKill
+firstTowerAssist
+firstTowerKill
+gameEndedInEarlySurrender
+gameEndedInSurrender
+getBackPings
+goldEarned
+goldSpent
+holdPings
+individualPosition
+inhibitorKills
+inhibitorTakedowns
+inhibitorsLost
+item0
+item1
+item2
+item3
+item4
+item5
+item6
+itemsPurchased
+killingSprees
+kills
+lane
+largestCriticalStrike
+largestKillingSpree
+largestMultiKill
+longestTimeSpentLiving
+magicDamageDealt
+magicDamageDealtToChampions
+magicDamageTaken
+needVisionPings
+neutralMinionsKilled
+nexusKills
+nexusLost
+nexusTakedowns
+objectivesStolen
+objectivesStolenAssists
+onMyWayPings
+participantId
+pentaKills
+perks
+physicalDamageDealt
+physicalDamageDealtToChampions
+physicalDamageTaken
+profileIcon
+pushPings
+quadraKills
+riotIdName
+riotIdTagline
+role
+sightWardsBoughtInGame
+spell1Casts
+spell2Casts
+spell3Casts
+spell4Casts
+summoner1Casts
+summoner1Id
+summoner2Casts
+summoner2Id
+summonerId
+summonerLevel
+summonerName
+teamEarlySurrendered
+teamId
+teamPosition
+timeCCingOthers
+timePlayed
+totalDamageDealt
+totalDamageDealtToChampions
+totalDamageShieldedOnTeammates
+totalDamageTaken
+totalHeal
+totalHealsOnTeammates
+totalMinionsKilled
+totalTimeCCDealt
+totalTimeSpentDead
+totalUnitsHealed
+tripleKills
+trueDamageDealt
+trueDamageDealtToChampions
+trueDamageTaken
+turretKills
+turretsLost
+unrealKills
+visionClearedPings
+visionScore
+visionWardsBoughtInGame
+wardsKilled
+wardsPlaced
+win
+            </pre>
+        </div>
     </div>
 </body>
 </html>
