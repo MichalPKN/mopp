@@ -11,9 +11,9 @@ class DataProcesser:
             i_matches = 0
             results = []
             vals = 0
-            for word in self.split_words(query):
-                if not word.isdigit() and word != "darkHarvestStacks" and word not in data[0]["matches"][0]["info"]["participants"][0]:
-                    raise ValueError(word)
+            # for word in self.split_words(query):
+            #     if not word.isdigit() and word != "darkHarvestStacks" and word not in data[0]["matches"][0]["info"]["participants"][0]:
+            #         raise ValueError(word)
             for user in data:
                 if user["puuid"] == puuid:
                     for match in user["matches"]:
@@ -30,6 +30,6 @@ class DataProcesser:
         return results
     
     def split_words(self, query):
-        return re.findall(r"[\w.]+", query)
+        return re.findall(r"[\w.-]+", query)
     
     

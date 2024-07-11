@@ -23,12 +23,14 @@ def main_app():
         results = dp.process_data(data["stat-request"], puuid)
         return render_template('index.html', stat=data["stat-request"], name=name, results = results)
     except ValueError as e:
+        raise e
         return render_template('index.html', error=f"Invalid stat: {e}", name=name)
     except IndexError as e:
-        #raise e
+        raise e
         #error might be in data
         return render_template('index.html', error=f"An error occurred: {e}<br>data might not be present, try refreshing them first", name=name)
     except Exception as e:
+        raise e
         return render_template('index.html', error=f"An error occurred: {e}", name=name)
     
 

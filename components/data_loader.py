@@ -51,6 +51,10 @@ class DataLoader:
                                         match["info"]["participants"][i]["darkHarvestStacks"] = "N/A"
                                 if found:
                                     break
+                            for other_participant in match["info"]["participants"]:
+                                if other_participant["lane"] == participant["lane"] and other_participant["teamId"] != participant["teamId"]:
+                                    for key, value in other_participant.items():
+                                        match["info"]["participants"][i]["enemy_" + key] = value
                     match_json[summoner_i]["matches"].insert(0,match)
                     #match_json[summoner_i]["matches"] = match_json[summoner_i]["matches"][:n_matches]
                 match_json[summoner_i]["last_match"] = matches[0]
