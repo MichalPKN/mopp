@@ -157,6 +157,16 @@
             word-wrap: break-word;
             color: #c7c7c7;
         }
+        a {
+            color: #07b64d;
+        }
+        code {
+            background-color: #292929;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 90%;
+            font-family: monospace;
+        }
     </style>
     <script>
         function refreshData() {
@@ -239,6 +249,12 @@
         {% endif %}
         {% endif %}
         <div class="all_variables">
+            <h3>How to Use</h3>
+            <p>Put an equation in the field; it could be anything from the list. For the enemy laner (opposite lane of the player), add <code>enemy_</code> before the stat name.</p>
+            <p>Remember to use logical operators like <code>==</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>.</p>
+            <p>To add recent games to the database, get yourself an API key from <a href="https://developer.riotgames.com/">Riot Developer Portal</a> (expires in 24 hours).</p>
+            <p><code>and</code>, <code>or</code>, <code>not</code>, <code>()</code>, <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, and other operations are also supported, follows python syntax.</p>
+            <br>
             <h3>Stats to use:</h3>
             <pre>
 allInPings
