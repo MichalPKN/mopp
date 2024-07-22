@@ -14,6 +14,7 @@ class DataProcesser:
             for word in self.split_words(query):
                 if (not word.isdigit() and word != "darkHarvestStacks"
                     and word not in data[0]["matches"][0]["info"]["participants"][0]
+                    and not word.startswith("enemy_")
                     and word not in ["and", "or", "not", "None", "N/A", "True", "False"]):
                     raise ValueError(word)
             for user in data:
