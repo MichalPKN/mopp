@@ -32,6 +32,7 @@ class DataLoader:
                     summoner = {"puuid": puuid, "last_match": "", "matches": []}
                     match_json.append(summoner)
                     summoner_i = len(match_json) - 1
+                n_matches = 0
                 for match_id in matches:
                     if match_id == summoner["last_match"]:
                         break
@@ -56,12 +57,13 @@ class DataLoader:
                                     for key, value in other_participant.items():
                                         match["info"]["participants"][i]["enemy_" + key] = value
                     match_json[summoner_i]["matches"].insert(0,match)
+                    n_matches += 1
                     #match_json[summoner_i]["matches"] = match_json[summoner_i]["matches"][:n_matches]
                 match_json[summoner_i]["last_match"] = matches[0]
                 file.seek(0)
                 file.truncate()
                 json.dump(match_json, file)
-                return
+                return n_matches
         except ApiError as err:
             raise
         

@@ -29,11 +29,18 @@
         #refresh {
             width: 250px;
         }
+        #refresh-status {
+            color: #c7c7c7;
+            margin: 0;
+            margin-top: 10px;
+            text-align: right;
+            min-height: 30px;
+        }
         header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 50px;
+            margin-bottom: 35px;
         }
         h1 {
             color: #4caf50;
@@ -153,16 +160,40 @@
     </style>
     <script>
         function refreshData() {
+            const messageDiv = document.getElementById('refresh-status');
+            const apiKey = document.getElementById('Riot-API-key').value;
+
+            if (!apiKey) {
+                messageDiv.textContent = "Please enter the API key.";
+                messageDiv.style.color = "red";
+                return;
+            }
+
+            messageDiv.textContent = "Loading in matches...";
+            messageDiv.style.color = "#c7c7c7";
             fetch('/button-pressed', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ refresh: true })
+                body: JSON.stringify({ API_key: apiKey })
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                if (data.error) {
+                    console.error("Error:", data.error);
+                    messageDiv.textContent = "Error: " + data.error;
+                    messageDiv.style.color = "red";
+                } else {
+                    console.log(data.message);
+                    messageDiv.textContent = data.message;
+                    messageDiv.style.color = "green";
+                }
+            })
+            .catch(error => {
+                console.error("Fetch Error:", error);
+                messageDiv.textContent = "Error: " + error;
+                messageDiv.style.color = "red";
             });
         }
     </script>
@@ -174,7 +205,11 @@
             <div class="mid">
                 <h2>{{ name }}</h2>
             </div>
-            <div id="refresh"><button onclick="refreshData()">Refresh data</button></div>
+            <div id="refresh">
+                <input type="text" id="Riot-API-key" placeholder="Riot API key">
+                <button onclick="refreshData()">Add recent matches</button>
+                <p id="refresh-status"></p>
+            </div>
         </header>
         <div class="stat-form">
             <form id="stat-request">
