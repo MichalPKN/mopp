@@ -12,12 +12,12 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 def main_app():
     data = request.args
-    if "stat-request" not in data:
-        return render_template('index.html')
-    dp = DataProcesser()
     name = riot_id + "#" + tag_line
     if name == "erectwillump#boing":
         name = "Kesha"
+    if "stat-request" not in data:
+        return render_template('index.html', name=name)
+    dp = DataProcesser()
     try:
         results = dp.process_data(data["stat-request"], puuid)
         return render_template('index.html', stat=data["stat-request"], name=name, results = results)
